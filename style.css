@@ -1,11 +1,40 @@
 body {
     margin: 0;
     padding: 0;
-    overflow: hidden;
+    overflow: hidden; /* Kaydırmayı engeller */
     background-color: black;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
 canvas {
     display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* Mesaj stili */
+#message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 5rem; /* Büyük ve etkileyici bir yazı boyutu */
+    font-weight: bold;
+    text-shadow: 0 0 15px pink, 0 0 30px #ff69b4; /* Parlak pembe efekt */
+    opacity: 0; /* Başlangıçta gizli tut */
+    transition: opacity 3s ease-in-out; /* 3 saniyede yavaşça görünür olsun */
+    z-index: 10;
+    white-space: nowrap; 
+    pointer-events: none; /* Üzerine tıklanmasını engeller */
+}
+
+/* JavaScript ile 'visible' sınıfı eklendiğinde mesajı göster */
+#message.visible {
+    opacity: 1;
 }
