@@ -23,11 +23,9 @@ window.addEventListener('resize', resizeCanvas);
 // Çiçek sınıfı
 class Flower {
     constructor() {
-        // Çiçeklerin her yerden çıkması için başlangıç X ve Y rastgele belirleniyor.
+        // Çiçekler ekranın rastgele bir noktasında başlar
         this.baseX = Math.random() * canvas.width;
         this.x = this.baseX;
-        
-        // Rastgele bir noktada başlasın
         this.startY = Math.random() * canvas.height;
         this.y = this.startY;
 
@@ -44,9 +42,9 @@ class Flower {
         this.windOffset = Math.random() * Math.PI * 2;
         this.alpha = 1; 
         
-        // Kopup dağılma için rastgele hızlar
-        this.driftX = (Math.random() - 0.5) * 2; 
-        this.driftY = (Math.random() - 0.5) * 2; 
+        // Yıldız gibi kaybolma için hareket kodları (drift) sıfırlandı
+        this.driftX = 0; 
+        this.driftY = 0; 
     }
 
     draw() {
@@ -65,8 +63,6 @@ class Flower {
 
         let radius = 10 * this.size; 
         let petals = 6;
-
-        // Büyüme aşamasında sap çizimini atlıyoruz, çünkü her yerden çıkıyor
         
         // Taç Yapraklar
         for (let i = 0; i < petals; i++) {
@@ -109,11 +105,7 @@ class Flower {
         } else if (animationState === 'FADING') {
             const progress = Math.min(1, (this.age - (growthEndTime)) / (FADING_TIME * 1000));
             
-            // Kopma ve Dağılma Hareketi
-            this.x += this.driftX;
-            this.y += this.driftY;
-            this.driftX *= 0.99; // Yatayda yavaşla
-            this.driftY += 0.05; // Yerçekimi etkisi (hafifçe aşağı in)
+            // Konumu sabit tut, sadece rüzgar sallaması devam etsin (x ve y'ye ekleme yapmıyoruz)
 
             // Yıldız gibi sönme (küçülme ve şeffaflaşma)
             this.scale = this.maxScale * (1 - progress); 
@@ -135,7 +127,6 @@ let flowers = [];
 // Çiçekleri başlangıç konumlarına yerleştir
 function initializeFlowers(resetAge = true) {
     if (flowers.length === MAX_FLOWERS && !resetAge) {
-        // Yeniden boyutlandırmada sadece pozisyonları ayarla
         flowers.forEach(flower => {
             flower.baseX = Math.random() * canvas.width;
             flower.startY = Math.random() * canvas.height;
@@ -150,13 +141,13 @@ function initializeFlowers(resetAge = true) {
     }
 }
 
-// Arka planda silik MEDİNE yazısını çizen fonksiyon
+// Arka planda silik MEDİNE ASBALA yazısını çizen fonksiyon
 function drawBackgroundText(){
-    ctx.font = 'bold 150px Arial';
+    ctx.font = 'bold 120px Arial'; // Yazıyı sığdırmak için font boyutu ayarlandı
     ctx.fillStyle = 'rgba(255,255,255,0.05)'; // Çok silik beyaz
     ctx.textAlign = 'center';
     // Ekranın ortasına yerleştiriyoruz
-    ctx.fillText('MEDİNE', canvas.width/2, canvas.height/2 + 20); 
+    ctx.fillText('MEDİNE ASBALA', canvas.width/2, canvas.height/2 + 20); 
 }
 
 // Animasyon döngüsü
